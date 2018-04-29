@@ -26,7 +26,7 @@ ci_false:
     - gadsbury_runner
   script:
     - /bin/false
-  when: manual
+  #when: manual
 
 ci_true:
   stage: ci_bool

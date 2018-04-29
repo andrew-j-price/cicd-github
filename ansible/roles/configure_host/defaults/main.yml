@@ -1,0 +1,5 @@
+---
+
+packer_source_location: 'https://releases.hashicorp.com/packer/1.2.3/packer_1.2.3_linux_amd64.zip'
+packer_download_destination: '/var/tmp/packer.zip'
+packer_checksum: '822fe76c2dfe699f187ef8c44537d10453a1545db620e40b345cf6991a690f7d'

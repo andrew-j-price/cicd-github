@@ -1,0 +1,46 @@
+---
+
+- name: Set timezone to etc/utc
+  file:
+    src: /usr/share/zoneinfo/Etc/UTC
+    dest: /etc/localtime
+    state: link
+    force: yes
+
+- name: Install EPEL
+  yum:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - epel-release
+
+- name: Install Packages
+  yum:
+    name: '{{ item }}'
+    state: latest
+  with_items:
+    - gcc
+    - git
+    - jq
+    - nc
+    - net-tools
+    - openssl-devel
+    - python-devel
+    - python-pip
+    - traceroute
+    - unzip
+    - wget
+
+- name: Download packer
+  get_url:
+    url: '{{ packer_source_location }}'
+    dest: '{{ packer_download_destination }}'
+    checksum: 'sha256:{{ packer_checksum }}'
+  register: packer_downloaded
+
+- name: Extract packer
+  unarchive:
+    src: '{{ packer_download_destination }}'
+    dest: /usr/bin/
+    copy: no
+  when: packer_downloaded.changed

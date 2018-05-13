@@ -7,7 +7,7 @@ stages:
 host:
   stage: configure
   tags:
-    - gadsbury_runner
+    - aws_runner
   script:
     - ansible-playbook ansible/configure_host.yml
   when: manual
@@ -15,7 +15,7 @@ host:
 code:
   stage: check
   tags:
-    - gadsbury_runner
+    - aws_runner
   script:
     - ansible-playbook ansible/configure_host.yml --syntax-check
     - for i in `find . -name *.json`; do echo '' && echo $i && python -c 'import json,sys;print json.load(sys.stdin)' < $i; done
@@ -23,7 +23,7 @@ code:
 ci_false:
   stage: ci_bool
   tags:
-    - gadsbury_runner
+    - aws_runner
   script:
     - /bin/false
   when: manual
@@ -31,14 +31,14 @@ ci_false:
 ci_true:
   stage: ci_bool
   tags:
-    - gadsbury_runner
+    - aws_runner
   script:
     - /bin/true
 
 image1:
   stage: build
   tags:
-    - gadsbury_runner
+    - aws_runner
   script:
     - ./tools/check.sh
   when: manual
@@ -46,7 +46,7 @@ image1:
 image2:
   stage: build
   tags:
-    - gadsbury_runner
+    - aws_runner
   script:
     - ./tools/check.sh
   when: manual
